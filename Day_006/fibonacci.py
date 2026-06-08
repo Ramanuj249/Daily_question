@@ -6,4 +6,4 @@ def fibonacci(num)->int:
     else:
         return  fibonacci(num-1) + fibonacci(num-2)
 
-print(fibonacci(40))
+print(fibonacci(11))

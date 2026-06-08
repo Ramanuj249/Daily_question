@@ -13,18 +13,21 @@ result =\
     "Clothing":    {"count": 3, "total": 6500,   "most_expensive": "Shoes"}
 }
 
-main_dict = dict()
-for i in products:
-    new_category = i["category"]
+def category_summary(_dict)->dict:
     new_dict = dict()
-    most_exp = 0
-    if new_category in main_dict:
-        new_dict["count"] +=1
-        new_dict["total"] += i["price"]
-        if most_exp>i["price"]:
-            most_exp = i["price"]
-            new_dict["most_expensive"] = i["name"]
-    else:
-        main_dict[new_category] = {"count":1, "total": i["price"], "most_expensive": i["name"]}
+    for i in products:
+        new_category = i["category"]
+        if new_category not in new_dict:
+            new_dict[new_category] = {"count": 1, "total": i["price"], "most_expensive": i["name"], "max_price": i["price"]}
+        else:
+            new_dict[new_category]["count"] +=1
+            new_dict[new_category]["total"] += i["price"]
+            if i["price"] > new_dict[new_category]["max_price"]:
+                new_dict[new_category]["most_expensive"] = i["name"]
 
-print(main_dict)
+    for category in new_dict:
+        del new_dict[category]["max_price"]
+
+    return (new_dict)
+
+print(category_summary(products))
